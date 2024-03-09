@@ -1,90 +1,79 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'conversation/style.css'%}">
-    <title>chat page</title>
+    <link rel="stylesheet" href="{% static 'conversation/style.css' %}">
+    <title>Chat page</title>
 </head>
 <body>
     <section class="msger">
         <header class="msger-header">
-          <div class="msger-header-title">
-            <i class="fas fa-comment-alt"></i> SimpleChat
-          </div>
-          <div class="msger-header-options">
-            <span><i class="fas fa-cog"></i></span>
-          </div>
+            <div class="msger-header-title">
+                <i class="fas fa-comment-alt"></i> SimpleChat
+            </div>
+            <div class="msger-header-options">
+                <span><i class="fas fa-cog"></i></span>
+            </div>
         </header>
-      
-        <main class="msger-chat">
-          {% for chat in chats %}
-            <!-- her text -->
-          {% if chat.name == 'me' %}
-          <div class="msg left-msg">
 
+        <div id="chat-messages">
+            <main class="msger-chat">
+                {% for chat in chats %}
+                <!-- her text -->
+                {% if chat.name == 'me' %}
+                <div class="msg left-msg">
+                    <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"></div>
+                    <div class="msg-bubble">
+                        <div class="msg-info">
+                            <div class="msg-info-name">dum</div>
+                            <div class="msg-info-time">12:45</div>
+                        </div>
+                        <div class="msg-text">
+                            {{ chat.content }}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="msg right-msg">
+                    <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"></div>
+                    <div class="msg-bubble">
+                        <div class="msg-info">
+                            <div class="msg-info-name">crab</div>
+                            <div class="msg-info-time">12:46</div>
+                        </div>
+                        <div class="msg-text">
+                            {{ chat.content }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </main>
+        </div>
 
-            <div
-             class="msg-img"
-             style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"
-            ></div>
-
-
-      
-            <div class="msg-bubble">
-              <div class="msg-info">
-                <div class="msg-info-name">dum</div>
-                <div class="msg-info-time">12:45</div>
-              </div>
-      
-              <div class="msg-text">
-               {{chat.content}}
-              </div>
-            </div>
-            
-          </div>
-          {% else %}
-
-
-
-
-          
-      
-          
-          <div class="msg right-msg">
-            <div
-             class="msg-img"
-             style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"
-            >
-            </div>
-      
-
-            <div class="msg-bubble">
-              <div class="msg-info">
-                <div class="msg-info-name">crab</div>
-                <div class="msg-info-time">12:46</div>
-              </div>
-      
-              <div class="msg-text">
-                {{chat.content}}
-              </div>
-            </div>
-          </div>
-          {% endif %}
-
-          {% endfor %}
-          
-
-        </main>
-      
-        <form class="msger-inputarea" method="POST" action="{%url 'send' %}">
+        <form class="msger-inputarea" method="POST" action="{% url 'send' %}">
             {% csrf_token %}
-          <input type="text" name="msg" class="msger-input" placeholder="Enter your message...">
-          <button type="submit" class="msger-send-btn">Send</button>
+            <input type="text" name="msg" class="msger-input" placeholder="Enter your message...">
+            <button type="submit" class="msger-send-btn">Send</button>
         </form>
+    </section>
 
-        
-      </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Function to load new messages without refreshing the page
+            function loadNewMessages() {
+                $.get("{% url 'home' %}", function(data) {
+                    $("#chat-messages").html($(data).find("#chat-messages").html());
+                });
+            }
+
+            // Periodically reload new messages every 5 seconds
+            setInterval(loadNewMessages, 5000);
+        });
+    </script>
 </body>
 </html>

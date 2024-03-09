@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .models import *
 # Create your views here.
 def index(request):
-    data=chat_data.objects.all()
+    data = chat_data.objects.all().order_by('-data')[:6:-1]
     context={
         'chats':data
     }
