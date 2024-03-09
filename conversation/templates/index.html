@@ -19,8 +19,9 @@
         </header>
       
         <main class="msger-chat">
-
+          {% for chat in chats %}
             <!-- her text -->
+          {% if chat.name == 'me' %}
           <div class="msg left-msg">
 
 
@@ -33,24 +34,24 @@
       
             <div class="msg-bubble">
               <div class="msg-info">
-                <div class="msg-info-name">BOT</div>
+                <div class="msg-info-name">dum</div>
                 <div class="msg-info-time">12:45</div>
               </div>
       
               <div class="msg-text">
-                Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
+               {{chat.content}}
               </div>
             </div>
             
           </div>
-
+          {% else %}
 
 
 
 
           
       
-          <!-- mine text -->
+          
           <div class="msg right-msg">
             <div
              class="msg-img"
@@ -61,24 +62,25 @@
 
             <div class="msg-bubble">
               <div class="msg-info">
-                <div class="msg-info-name">Sajad</div>
+                <div class="msg-info-name">crab</div>
                 <div class="msg-info-time">12:46</div>
               </div>
       
               <div class="msg-text">
-                You can change your name in JS section!
+                {{chat.content}}
               </div>
             </div>
           </div>
+          {% endif %}
 
-
+          {% endfor %}
           
 
         </main>
       
-        <form class="msger-inputarea" method="POST">
+        <form class="msger-inputarea" method="POST" action="{%url 'send' %}">
             {% csrf_token %}
-          <input type="text" class="msger-input" placeholder="Enter your message...">
+          <input type="text" name="msg" class="msger-input" placeholder="Enter your message...">
           <button type="submit" class="msger-send-btn">Send</button>
         </form>
 
