@@ -23,13 +23,13 @@
             <main class="msger-chat">
                 {% for chat in chats %}
                 <!-- her text -->
-                {% if chat.name == 'me' %}
+                {% if chat.name == 'she' %}
                 <div class="msg left-msg">
-                    <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"></div>
+                    <div class="msg-img"  style="background-image: url('{% static 'conversation/image/giphy.gif' %}')" ></div>
                     <div class="msg-bubble">
                         <div class="msg-info">
-                            <div class="msg-info-name">dum</div>
-                            <div class="msg-info-time">12:45</div>
+                            <div class="msg-info-name"> storng Aries  </div>
+                            <!-- <div class="msg-info-time">12:45</div> -->
                         </div>
                         <div class="msg-text">
                             {{ chat.content }}
@@ -38,11 +38,11 @@
                 </div>
                 {% else %}
                 <div class="msg right-msg">
-                    <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"></div>
+                    <div class="msg-img" style="background-image: url('{% static 'conversation/image/200w.webp' %}')"></div>
                     <div class="msg-bubble">
                         <div class="msg-info">
-                            <div class="msg-info-name">crab</div>
-                            <div class="msg-info-time">12:46</div>
+                            <div class="msg-info-name"> dum aquarius  </div>
+                            <!-- <div class="msg-info-time">12:46</div> -->
                         </div>
                         <div class="msg-text">
                             {{ chat.content }}
@@ -62,7 +62,7 @@
     </section>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             // Function to load new messages without refreshing the page
             function loadNewMessages() {
@@ -73,7 +73,7 @@
 
             // Periodically reload new messages every 5 seconds
             setInterval(loadNewMessages, 5000);
-        });
+        }); -->
     </script>
 </body>
 </html>
